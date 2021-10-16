@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "416265812974",
+    "project_id": "vervecationflutter",
+    "storage_bucket": "vervecationflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416265812974:android:a927cf30ba349e0d69ecff",
+        "android_client_info": {
+          "package_name": "com.baselalzaben.englishfinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416265812974-aup0hnr4h2ojci87oinq1umspvteothp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYBoACI-vdiAIfhbF30zUP7lInuIGzHUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416265812974-aup0hnr4h2ojci87oinq1umspvteothp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

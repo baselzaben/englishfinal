@@ -1,4 +1,5 @@
 import 'package:englishfinal/globalvar.dart';
+import 'package:englishfinal/testPage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,27 +10,37 @@ import 'showvidopage.dart';
 
 class showvideopage  extends StatefulWidget {
   String name="";String path="";String emailcompleted="";
-  showvideopage(String name,String path,String emailcompleted){
+  String rout="";
+  String go="";
+  String k="";
+
+  showvideopage(String name,String path,String emailcompleted,String k,String go){
     this.path=path;
     this.name=name;
+    this.rout=name;
+    this.go=go;
+    this.k=k;
     this.emailcompleted=emailcompleted;
-    showvideopageState(name,path,emailcompleted);
+    showvideopageState(name,path,emailcompleted, name, go,k);
   }
 
 
 
   @override
-  showvideopageState createState() => showvideopageState(name,path,emailcompleted);
+  showvideopageState createState() => showvideopageState(name,path,emailcompleted, rout, go,k);
 }
 
 class showvideopageState extends State<showvideopage> {
   String name="";String path="";String emailcompleted="";
 
+  String rout="";String go="";String k="";
 
-
-  showvideopageState(String name,String path,String emailcompleted){
+  showvideopageState(String name,String path,String emailcompleted,String rout,String go,String k){
     this.path=path;
-    this.name=name;
+    this.name=name; this.rout=name;
+    this.go=go;
+    this.rout=name;
+    this.k=k;
     this.emailcompleted=emailcompleted;
   }
 
@@ -58,8 +69,8 @@ class showvideopageState extends State<showvideopage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Video Demo"),
+      appBar: AppBar(backgroundColor: hexToColor(globalvar.enishialcolor),
+        title: Text(name),
       ),
       body: FutureBuilder(
         future: _initializeVideoPlayerFuture,
@@ -70,6 +81,13 @@ class showvideopageState extends State<showvideopage> {
           children: <Widget>[
 
             Container(
+              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50,bottom: 10),
+                child: Text('"لن تتمكن من مشاهدة الحصة التالية الا بعد أكمال الاختبار"',style: TextStyle(color:  Colors.redAccent,fontSize: 13),)
+
+            ),
+
+
+            Container(
                 margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50,bottom: 10),
                 child: AspectRatio(
     aspectRatio: _controller.value.aspectRatio,
@@ -78,13 +96,15 @@ class showvideopageState extends State<showvideopage> {
 
 
             Container(
+              color: Colors.black12,
                 margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
                 child:TextButton(onPressed: (){
-
+                  selectItem(rout,go,k,context);
           /*Navigator.push(context,
           MaterialPageRoute(builder: (context) => RegesterScreen()),);*/
 
-          }, child: Text('الذهاب الى الاختبار')))
+          }, child: Text('الذهاب الى الاختبار',style: TextStyle(color:  hexToColor(globalvar.enishialcolor2),fontSize: 15),)))
 
 
     ]);
@@ -119,4 +139,18 @@ class showvideopageState extends State<showvideopage> {
 
     );
   }
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
+  selectItem(String rout,String go,String key,BuildContext context) {
+
+
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('compleeete')));
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => testPage(rout,go,k,emailcompleted)),);
+
+  }
+
 }

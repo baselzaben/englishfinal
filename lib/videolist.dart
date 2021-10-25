@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'partclasses.dart';
 import 'videolist.dart';
 import 'showvidopage.dart';
+import 'testPage.dart';
 
 class videolist extends StatelessWidget {
   var go='';
@@ -24,7 +25,7 @@ class videolist extends StatelessWidget {
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(title),backgroundColor: hexToColor(globalvar.enishialcolor2),),
       body: FutureBuilder(
         future: _messagesRef.once(),
         // future: FirebaseDatabase.instance
@@ -37,8 +38,14 @@ class videolist extends StatelessWidget {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           List scannedItemsValues = [];
           snapshot.data.value.forEach(
-                  (_, values) => scannedItemsValues.add(values["name"])
+                  (_, values) => scannedItemsValues.add(values["title"])
           );
+
+          List scannedItemskey = [];
+          snapshot.data.value.forEach(
+                  (_, values) => scannedItemskey.add(values["name"])
+          );
+
           List scannedItemspath = [];
           snapshot.data.value.forEach(
                   (_, values) => scannedItemspath.add(values["path"])
@@ -59,7 +66,7 @@ class videolist extends StatelessWidget {
               print(scannedItemsValues[index]);
               return  GestureDetector(
 
-                  onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,context),
+                  onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,scannedItemskey[index],context,go),
                   /*onTap: () => (){
 
         Navigator.push(context,
@@ -72,7 +79,7 @@ class videolist extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
                       child: Card(
-color: Colors.lightBlue,
+color:  hexToColor(globalvar.enishialcolor),
 
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -96,15 +103,15 @@ color: Colors.lightBlue,
     );
   }
 
-  selectItem(String name,String path,String emailcompleted,String email,BuildContext context) {
+  selectItem(String name,String path,String emailcompleted,String email,key,BuildContext context,go) {
     print(emailcompleted);
     print(formatsrting(email));
-    if (formatsrting(email).contains(formatsrting((emailcompleted)))) {
+    if (formatsrting(emailcompleted).contains(formatsrting((email)))||key.toString().contains("v1")) {
 
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('compleeete')));
       Navigator.push(context,
-        MaterialPageRoute(builder: (context) => showvideopage(name,path,emailcompleted)),);
+        MaterialPageRoute(builder: (context) => showvideopage(name,path,emailcompleted,key,go)),);
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('noooot compleeeted')));
@@ -113,22 +120,26 @@ color: Colors.lightBlue,
   }
 
   Widget  checkcomplet(String name,String path,String emailcompleted,String email,BuildContext context) {
-    if (formatsrting(email).contains(formatsrting((emailcompleted)))) {
+    if (formatsrting(emailcompleted).contains(formatsrting((email)))) {
       return  Container(
         alignment:Alignment.center,
         margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
         child: Image.asset('assets/images/complet.png'),height: 50,width: 50,);
 
-    }
+    }else{
     return  Container(
       alignment:Alignment.center,
       margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
     child: Image.asset('assets/images/qustion.png'),height: 50,width: 50,);
 
   }
+  }
   String formatsrting(String len) {
     String len2=len.replaceAll('@', '');
     len2=len2.replaceAll('.', '');
     return len2;
+  }
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }

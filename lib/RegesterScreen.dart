@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:englishfinal/globalvar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,76 +20,95 @@ class RegesterScreen extends StatelessWidget {
      /* appBar: new AppBar(
         title: new Text("Multi Page Application Page-1"),
       ),*/
-      body:SingleChildScrollView(
-              child: Column(
-                  children: <Widget>[
+      body:Container(
+        color: hexToColor(globalvar.enishialcolor),
 
-                    Container(
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20),
+        child: SingleChildScrollView(
+                child: Column(
+                    children: <Widget>[
 
-                      child: Image.asset('assets/images/logo.jpg'),
-                    ),
+                      Container(
 
-                    Container(
-                        color: Colors.white,
-                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50),
+                        height: 300,
+                        width:300,
+                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 0,bottom: 0),
+                        padding: const EdgeInsets.only(left: 0.0, right: 0.0,top: 40,bottom: 0),
+
+                        child: Image.asset('assets/images/logo.png'),
+                      ),
+
+                      Container(
+                          color: Colors.white,
+                          margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 20),
+                          padding: const EdgeInsets.only(left: 0.0, right: 0.0,top: 20,bottom: 0),
 
 
-                        child: Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20),
-                                child: TextField(
-                                  controller: namedController,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(20),
-                                    filled: true,
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Name',
-                                    hintText: 'Input name',
-                                    prefixIcon: Icon(Icons.favorite),
-                                  ),
-                                ),),
-                              Container(
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 25),
-                                child: TextField(
-                                  controller: emailController,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(20),
-                                    filled: true,
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Email',
-                                    hintText: 'Input your Email',
-                                    prefixIcon: Icon(Icons.favorite),
-                                  ),
-                                ),),
-                              Container(
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 25),
-                                child: TextField(
-                                  controller: passwordController,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(20),
-                                    filled: true,
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Password',
-                                    hintText: 'Input your pasword',
-                                    prefixIcon: Icon(Icons.favorite),
-                                  ),
-                                ),),
+                          child: Card(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 20),
 
-                              Container(
-                                  width: 200
-                                  ,
-                                  height: 40,
-                                  margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 70,bottom: 50),
-                                  child: RaisedButton(
-                                    color: Colors.green, // background
-                                    textColor: Colors.white, // foreground
-                                    onPressed: () {
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.name,
+                                    controller: namedController,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(20),
+                                      filled: true,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Name',
+                                      hintText: 'Input name',
+                                      prefixIcon: Icon(Icons.account_box_rounded),
+                                    ),
+                                  ),),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 20),
 
-if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedController.text.isEmpty )
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.emailAddress,
+
+                                    controller: emailController,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(20),
+                                      filled: true,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Email',
+                                      hintText: 'Input your Email',
+                                      prefixIcon: Icon(Icons.email),
+
+                                    ),
+                                  ),),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 20),
+
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.visiblePassword,
+
+                                   // validator: Validators.min(5, 'Value less than 5 not allowed'),
+                                    controller: passwordController,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(20),
+                                      filled: true,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Password',
+                                      hintText: 'Input your password',
+                                      prefixIcon: Icon(Icons.password),
+                                    ),
+                                  ),),
+
+                                Container(
+                                    width: 200
+                                    ,
+                                    height: 40,
+                                    margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 70,bottom: 50),
+                                    child: RaisedButton(
+                                      color: hexToColor(globalvar.enishialcolor2),
+
+                                      textColor: Colors.white, // foreground
+                                      onPressed: () {
+
+if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedController.text.isEmpty &&emailController.text.contains("@")&& emailController.text.contains("."))
 {
   String email="";
   DatabaseReference _messagesRef =
@@ -115,55 +135,56 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
   {
     if(fullemail.contains(emailController.text)){
 
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('موجود')))
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('موجود')))
     } else
-      {
+        {
 
-        _messagesRef.child(getRandString(8)).set({
-          'name': namedController.text.toString(),
-          'email': emailController.text.toString(),
-          'password': passwordController.text+formatsrting(emailController.text)
-        }).then((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Successfully Added')));
-          namedController.clear();
-          emailController.clear();
-          passwordController.clear();
-        }).catchError((onError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(onError)));
-        })}
+          _messagesRef.child(getRandString(8)).set({
+            'name': namedController.text.toString(),
+            'email': emailController.text.toString(),
+            'password': passwordController.text+formatsrting(emailController.text)
+          }).then((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Successfully Added')));
+            namedController.clear();
+            emailController.clear();
+            passwordController.clear();
+          }).catchError((onError) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(onError)));
+          })}
   });
 }else{
   ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('complet information')));
+        SnackBar(content: Text('complet information')));
 }
-                                    },
-                                    child: Text('Register'),
-                                  )
-                              ),
+                                      },
+                                      child: Text('Register'),
+                                    )
+                                ),
 
-                              Container(
-                                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10),
-                                  child: TextButton(onPressed: (){
+                                Container(
+                                    margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10),
+                                    child: TextButton(onPressed: (){
 
-                                    Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => HomeScreen()),);
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => HomeScreen()),);
 
-                                  }, child: Text(' already have account ?')))
+                                    }, child: Text(' already have account ?')))
 
-                            ],
-                          ),
-                        )
-
-
-                    ),
+                              ],
+                            ),
+                          )
 
 
+                      ),
 
 
-                  ]))
+
+
+                    ])),
+      )
     );
   }
   String getRandString(int len) {
@@ -177,5 +198,7 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
    len2=len2.replaceAll('.', '');
     return len2;
   }
-
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
 }

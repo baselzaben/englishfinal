@@ -5,6 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'RegesterScreen.dart';
 import 'HomePage.dart';
+import 'AdHelper.dart';
+
 void main() { runApp(MyApp());}
 
 class MyApp extends StatelessWidget {
@@ -32,25 +34,29 @@ class SplashScreenState extends State<MyHomePage> {
             )
         )
     );
+
+
+
   }
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.blueAccent,
+        color: Color(int.parse("#055C9D".substring(1, 7), radix: 16) + 0xFF000000),
         child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50),
+            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 200),
 
-            child: Image.asset('assets/images/logo.jpg',height: 100,),
+            child: Image.asset('assets/images/logo.png',height: 400,width: 500,),
+
           ),
-
-
-
         ])
 
     );
+  }
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }
 class HomeScreen extends StatelessWidget {
@@ -61,64 +67,75 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(
-              children: <Widget>[
 
-          Container(
-            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20),
-
-            child: Image.asset('assets/images/logo.jpg'),
-          ),
-
-                Container(
-          color: Colors.white,
-         margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50),
-
-
-            child: Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+      body: Container(
+        height: double.infinity,
+        color: hexToColor(globalvar.enishialcolor),
+        child: SingleChildScrollView(
+            child: Column(
                 children: <Widget>[
-              Container(
-              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20),
-              child: TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20),
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
-                  hintText: 'Input your email',
-                  prefixIcon: Icon(Icons.email),
-                ),
-              ),),
+
+            Container(
+
+              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 0,bottom: 0),
+
+              child: Image.asset('assets/images/logo.png',height: 250,),
+            ),
 
                   Container(
+                      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      padding: const EdgeInsets.only(left: 0.0, right: 0.0,top: 30,bottom: 0),
 
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 25),
-                    child: TextField(
-                      controller: passwordController,
 
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        filled: true,
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                        hintText: 'Input your pasword',
-                        prefixIcon: Icon(Icons.password),
-                      ),
-                    ),),
 
-          Container(
-            width: 200
-              ,
-            height: 40,
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 70,bottom: 50),
-                  child: RaisedButton(
-                    color: Colors.green, // background
-                    textColor: Colors.white, // foreground
-                    onPressed: () {
+              child: Card(
+                borderOnForeground:false,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 40),
+                child: TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Input your email',
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                ),),
+
+                    Container(
+
+                        margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 40),
+                      child: TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(15),
+                          filled: true,
+                          border: OutlineInputBorder(),
+                          labelText: 'Password',
+                          hintText: 'Input your password',
+                          prefixIcon: Icon(Icons.password),
+                        ),
+                      ),),
+
+            Container(
+              width: 200
+                ,
+              height: 40,
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 70,bottom: 70),
+                    child: RaisedButton(
+                      color: hexToColor(globalvar.enishialcolor2),
+                      // background
+                      textColor: Colors.white, // foreground
+                      onPressed: () {
     if(!emailController.text.isEmpty &&passwordController.text.isNotEmpty)
     {
     DatabaseReference _messagesRef2 =
@@ -131,10 +148,10 @@ class HomeScreen extends StatelessWidget {
     }).then((value) =>
 
 
-        //globalvar.name=emailController.text;
-       /* ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('جار تسجيل الدخول'))),*/
-                      globalvar.email=emailController.text
+          //globalvar.name=emailController.text;
+         /* ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('جار تسجيل الدخول'))),*/
+                        globalvar.email=emailController.text
 
 
     ).whenComplete(() =>
@@ -142,14 +159,14 @@ class HomeScreen extends StatelessWidget {
 {
     if(fullemail.contains(emailController.text)  && fullemail.contains(passwordController.text+formatsrting(emailController.text))){
 
-      Navigator.push(context,
-      MaterialPageRoute(builder: (context) => HomePage()),)
+        Navigator.push(context,
+        MaterialPageRoute(builder: (context) => MainPage()),)
 
      /* ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('true'))),
+            SnackBar(content: Text('true'))),
 
-      Navigator.push(context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),),*/
+        Navigator.push(context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),),*/
 
 
 
@@ -157,44 +174,50 @@ class HomeScreen extends StatelessWidget {
     } else
     {
 
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('البريد الالكتروني او رمز المرور خطأ')))
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('البريد الالكتروني او رمز المرور خطأ')))
 
     }});
 
 
-                    }
-                    },
-                    child: Text('Login'),
-                  )
+                      }
+                      },
+                      child: Text('Login'),
+                    )
+            ),
+
+                    Container(
+                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10),
+                    child: TextButton(onPressed: (){
+
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RegesterScreen()),);
+
+                    }, child: Text('You Don\'t have account ?')))
+
+                  ],
+                ),
+              )
+
+
           ),
 
-                  Container(
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10),
-                  child: TextButton(onPressed: (){
-
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegesterScreen()),);
-
-                  }, child: Text('You Don\'t have account ?')))
-
-                ],
-              ),
-            )
-
-
-        ),
 
 
 
-
-              ])));
+                ])),
+      ));
   }
   String formatsrting(String len) {
     String len2=len.replaceAll('@', '');
     len2=len2.replaceAll('.', '');
     return len2;
   }
+
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
 }
 
 

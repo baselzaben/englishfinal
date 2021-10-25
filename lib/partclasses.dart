@@ -1,3 +1,4 @@
+import 'package:englishfinal/globalvar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ partclasses(var gg,var title){
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title2)),
+      appBar: AppBar(title: Text(title2),backgroundColor: hexToColor(globalvar.enishialcolor2),),
       body: FutureBuilder(
         future: _messagesRef.once(),
         // future: FirebaseDatabase.instance
@@ -31,7 +32,7 @@ partclasses(var gg,var title){
         //     .once(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
-            return new Text('Loading....');
+            return new Text('جار التحميل...');
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           List scannedItemsValues = [];
           snapshot.data.value.forEach(
@@ -62,23 +63,57 @@ partclasses(var gg,var title){
                   child: Container(
                       margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
-                      child: Card(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
-                                  child: Text(scannedItemsValues[index]),
+              child: Card(
 
-                                )])))
 
-              );
+              semanticContainer: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 5,
+              margin: EdgeInsets.all(5),
+              child: Container(
+
+              decoration: BoxDecoration(
+              gradient: LinearGradient(
+              colors: [
+              const Color(0xFF141F55),
+              const Color(0xFF0C1D3D),
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+              ),
+
+
+
+
+              child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+              Container(
+              padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
+
+              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+              child: Text(scannedItemstitle[index],style: TextStyle(color: Colors.white,fontSize: 20),),
+
+              )])
+
+              ),
+
+
+
+              )
+
+              ));
             },
           );
         },
       ),
 
-      drawer: Drawer(
+/*      drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
@@ -112,7 +147,7 @@ partclasses(var gg,var title){
             ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 
@@ -121,4 +156,8 @@ selectItem(String name,String rout,String title,BuildContext context) {
   Navigator.push(context,
     MaterialPageRoute(builder: (context) => videolist(name,rout,title)));
 }
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
 }

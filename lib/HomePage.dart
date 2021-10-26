@@ -15,6 +15,12 @@ class MainPage extends StatefulWidget{
   HomePage createState()=> HomePage();
 }
 class HomePage extends State<MainPage> {
+
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    // TODO: Initialize Google Mobile Ads SDK
+    return MobileAds.instance.initialize();
+  }
+
   late BannerAd _ad;
 
   // TODO: Add _isAdLoaded
@@ -91,8 +97,15 @@ class HomePage extends State<MainPage> {
     );
     print(scannedItemsValues);
     return Container(
+      height: double.infinity,
+      color: hexToColor(globalvar.enishialcolor),
+        child: SingleChildScrollView(
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
 
-      child: ListView.builder(
+       ListView.builder(
+         shrinkWrap: true,
       itemCount: scannedItemsValues.length,
       itemBuilder: (BuildContext context, int index) {
 
@@ -156,20 +169,15 @@ class HomePage extends State<MainPage> {
                    child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                    /*      Container(
+                          Container(
                             padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
 
                             margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
                             child: Text(scannedItemsValues2[index],style: TextStyle(color: Colors.white,fontSize: 20),),
 
-                          ),*/
+                          ),
 
-                          Container(
-                            child: AdWidget(ad: _ad),
-                            width: _ad.size.width.toDouble(),
-                            height: 72.0,
-                            alignment: Alignment.center,
-                          )
+
                         ])
 
           ),
@@ -186,7 +194,20 @@ class HomePage extends State<MainPage> {
         );
 
       },
+
+
       ),
+
+
+              Container(
+                child: AdWidget(ad: _ad),
+                width: _ad.size.width.toDouble(),
+                height: 80.0,
+                alignment: Alignment.center,
+              )
+
+
+      ]))
     );
     },
     ),
@@ -257,7 +278,7 @@ class HomePage extends State<MainPage> {
   selectItem(String product,String title,BuildContext context) {
 globalvar.homeselecteditem=product;
     Navigator.push(context,
-      MaterialPageRoute(builder: (context) => partclasses(product,title)),);
+      MaterialPageRoute(builder: (context) => partclassesPage(product,title)),);
   }
   Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);

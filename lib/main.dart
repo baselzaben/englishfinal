@@ -40,11 +40,17 @@ class SplashScreenState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Color(int.parse("#055C9D".substring(1, 7), radix: 16) + 0xFF000000),
+    return Container( decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/images/background.jpg"),
+        fit: BoxFit.cover,
+      ),
+    ),
+     //   color: Color(int.parse("#055C9D".substring(1, 7), radix: 16) + 0xFF000000),
         child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+
           Container(
             margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 200),
 
@@ -69,8 +75,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
 
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
+
         height: double.infinity,
-        color: hexToColor(globalvar.enishialcolor),
+      //  color: hexToColor(globalvar.enishialcolor),
         child: SingleChildScrollView(
             child: Column(
                 children: <Widget>[

@@ -2,12 +2,70 @@ import 'package:englishfinal/globalvar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'AdHelper.dart';
 import 'partclasses.dart';
 import 'videolist.dart';
 
+// TODO: Import google_mobile_ads.dart
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'main.dart';
+class partclassesPage extends StatefulWidget{
+  var go='';
+  var title2="";
+  partclassesPage(var gg,var title){
+    go=gg;
+    title2=title;
+  }
 
-class partclasses extends StatelessWidget {
+  partclasses createState()=> partclasses(go,title2);
+}
+class partclasses extends State<partclassesPage>  {
+  late BannerAd _ad;
+
+  // TODO: Add _isAdLoaded
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO: Create a BannerAd instance
+    _ad = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    );
+
+    // TODO: Load an ad
+    _ad.load();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   var go='';
   var title2="";
 DatabaseReference _messagesRef =FirebaseDatabase.instance.reference().child('items').child('en').child('items') ;
@@ -44,71 +102,91 @@ partclasses(var gg,var title){
           );
 
           print(scannedItemsValues);
-          return ListView.builder(
-            itemCount: scannedItemsValues.length,
-            itemBuilder: (BuildContext context, int index) {
+          return Container(
+              color: hexToColor(globalvar.enishialcolor),
+            height: double.infinity,
+
+            child: SingleChildScrollView(
+            child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListView.builder(
+                shrinkWrap: true,
+
+                itemCount: scannedItemsValues.length,
+              itemBuilder: (BuildContext context, int index) {
 
 
-              print(scannedItemsValues[index]);
-              return  GestureDetector(
-                  onTap: () => selectItem(scannedItemsValues[index],go,scannedItemstitle[index],context),
-                  /*onTap: () => (){
+                print(scannedItemsValues[index]);
+                return  GestureDetector(
+                    onTap: () => selectItem(scannedItemsValues[index],go,scannedItemstitle[index],context),
+                    /*onTap: () => (){
 
         Navigator.push(context,
       MaterialPageRoute(builder: (context) => RegesterScreen()),);
         print("basell");
      *//*     ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('complet information')));*//*
+                SnackBar(content: Text('complet information')));*//*
         },*/
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
-              child: Card(
-
-
-              semanticContainer: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 5,
-              margin: EdgeInsets.all(5),
-              child: Container(
-
-              decoration: BoxDecoration(
-              gradient: LinearGradient(
-              colors: [
-              const Color(0xFF141F55),
-              const Color(0xFF0C1D3D),
-              ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-              ),
+                child: Card(
 
 
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                ),
+                elevation: 5,
+                margin: EdgeInsets.all(5),
+                child: Container(
+
+                decoration: BoxDecoration(
+                gradient: LinearGradient(
+                colors: [
+                const Color(0xFF141F55),
+                const Color(0xFF0C1D3D),
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+                ),
 
 
-              child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+
+
+                child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
+
+                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                child: Text(scannedItemstitle[index],style: TextStyle(color: Colors.white,fontSize: 20),),
+
+                )])
+
+                ),
+
+
+
+                )
+
+                ));
+              },
+            ),
+
               Container(
-              padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
-
-              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
-              child: Text(scannedItemstitle[index],style: TextStyle(color: Colors.white,fontSize: 20),),
-
-              )])
-
-              ),
-
-
-
+                child: AdWidget(ad: _ad),
+                width: _ad.size.width.toDouble(),
+                height: 80.0,
+                alignment: Alignment.center,
               )
 
-              ));
-            },
+            ])),
           );
         },
       ),
@@ -154,7 +232,7 @@ partclasses(var gg,var title){
 selectItem(String name,String rout,String title,BuildContext context) {
 
   Navigator.push(context,
-    MaterialPageRoute(builder: (context) => videolist(name,rout,title)));
+    MaterialPageRoute(builder: (context) => videolistPage(name,rout,title)));
 }
   Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);

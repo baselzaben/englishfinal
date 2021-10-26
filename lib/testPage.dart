@@ -71,7 +71,12 @@ String correct="";
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title),backgroundColor: hexToColor(globalvar.enishialcolor2),),
+
+      appBar: AppBar(title: Text('ألاختــبار'),backgroundColor: hexToColor(globalvar.enishialcolor2),   shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(0),
+        ),
+      ),),
       body: FutureBuilder(
         future: _messagesRef.once(),
 
@@ -112,6 +117,7 @@ String correct="";
           length.add((Q.length-1).toString());
             print(Q.length.toString()+"THIS IS LENGTH NNNNNNNNNNNNNN");
           return Container(
+            color: hexToColor(globalvar.enishialcolor),
                 // onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,context),
                   child: Container(
                     margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
@@ -126,9 +132,10 @@ String correct="";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                         Text(Q[index],style: TextStyle(color:  Colors.white,fontSize: 20),),
-
+                          Container(
+                        margin: const EdgeInsets.only(bottom: 15),
+                         child: Text(Q[index],style: TextStyle(color:  Colors.white,fontSize: 20),),
+                        ),
                             Container(
                               width:MediaQuery.of(context).size.width ,
                                 color: Colors.white,
@@ -262,11 +269,19 @@ else {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("تيجة الاختبار",),
+    /*      title: new Text("تيجة الاختبار",),
           content: new Text(result,style: TextStyle(color: c),),
+*/
           actions: <Widget>[
+            Container(
+                margin: const EdgeInsets.only(top: 9,right: 9,left: 9),
+                child: Center(child: Image.asset('assets/images/logo.png',height: 200,),)),
+          //  Container( margin: const EdgeInsets.only(top: 9,right: 9,left: 9), child: Text("نتيجة الاختبار",style: TextStyle(fontSize: 20),),),
+            Container( margin: const EdgeInsets.only(bottom: 9,right: 9,left: 9,top: 5),  child: Center(child: Text(result,style: TextStyle(color: c,fontSize: 22),)),),
+
             new FlatButton(
-              child: new Text("موافق"),
+              color: hexToColor(globalvar.enishialcolor2),
+              child: new Text("موافق",style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.of(context).pop();
               },

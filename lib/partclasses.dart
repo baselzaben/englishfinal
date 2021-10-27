@@ -106,87 +106,91 @@ partclasses(var gg,var title){
               color: hexToColor(globalvar.enishialcolor),
             height: double.infinity,
 
-            child: SingleChildScrollView(
-            child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListView.builder(
-                shrinkWrap: true,
+            child: Container(
+              margin: EdgeInsets.all(5),
+            child: Card(
+              child: SingleChildScrollView(
+              child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListView.builder(
+                  shrinkWrap: true,
 
-                itemCount: scannedItemsValues.length,
-              itemBuilder: (BuildContext context, int index) {
+                  itemCount: scannedItemsValues.length,
+                itemBuilder: (BuildContext context, int index) {
 
 
-                print(scannedItemsValues[index]);
-                return  GestureDetector(
-                    onTap: () => selectItem(scannedItemsValues[index],go,scannedItemstitle[index],context),
-                    /*onTap: () => (){
+                  print(scannedItemsValues[index]);
+                  return  GestureDetector(
+                      onTap: () => selectItem(scannedItemsValues[index],go,scannedItemstitle[index],context),
+                      /*onTap: () => (){
 
         Navigator.push(context,
       MaterialPageRoute(builder: (context) => RegesterScreen()),);
         print("basell");
      *//*     ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('complet information')));*//*
+                  SnackBar(content: Text('complet information')));*//*
         },*/
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                      child: Container(
+                          margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
-                child: Card(
-
-
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                ),
-                elevation: 5,
-                margin: EdgeInsets.all(5),
-                child: Container(
-
-                decoration: BoxDecoration(
-                gradient: LinearGradient(
-                colors: [
-                const Color(0xFF141F55),
-                const Color(0xFF0C1D3D),
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
-                ),
+                  child: Card(
 
 
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 5,
+                  margin: EdgeInsets.all(5),
+                  child: Container(
+
+                  decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                  colors: [
+                  const Color(0xFF141F55),
+                  const Color(0xFF0C1D3D),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+                  ),
 
 
-                child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+
+
+                  child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                  Container(
+                  padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
+
+                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                  child: Text(scannedItemstitle[index],style: TextStyle(color: Colors.white,fontSize: 20),),
+
+                  )])
+
+                  ),
+
+
+
+                  )
+
+                  ));
+                },
+              ),
+
                 Container(
-                padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
-
-                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
-                child: Text(scannedItemstitle[index],style: TextStyle(color: Colors.white,fontSize: 20),),
-
-                )])
-
-                ),
-
-
-
+                  child: AdWidget(ad: _ad),
+                  width: _ad.size.width.toDouble(),
+                  height: 80.0,
+                  alignment: Alignment.center,
                 )
 
-                ));
-              },
-            ),
-
-              Container(
-                child: AdWidget(ad: _ad),
-                width: _ad.size.width.toDouble(),
-                height: 80.0,
-                alignment: Alignment.center,
-              )
-
-            ])),
+              ])),
+            ) ),
           );
         },
       ),

@@ -117,64 +117,85 @@ String correct="";
           length.add((Q.length-1).toString());
             print(Q.length.toString()+"THIS IS LENGTH NNNNNNNNNNNNNN");
           return Container(
+            height: double.infinity,
             color: hexToColor(globalvar.enishialcolor),
                 // onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,context),
                   child: Container(
+
                     margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
                     child: Card(
-                        color:  hexToColor(globalvar.enishialcolor),
-                        child: Column(
-                            children: <Widget>[
+                        color:  Colors.white,
+                        child: SingleChildScrollView(
+                          child: Column(
+                              children: <Widget>[
 
                     Padding(
-                        padding: EdgeInsets.all(25),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                          Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                         child: Text(Q[index],style: TextStyle(color:  Colors.white,fontSize: 20),),
-                        ),
-                            Container(
-                              width:MediaQuery.of(context).size.width ,
-                                color: Colors.white,
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 5),
-                                padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
-                                child:TextButton(onPressed: (){
-                                  nextquestion(A1[index],context);
-                                }, child: Text(A1[index],style: TextStyle(color:  hexToColor(globalvar.enishialcolor2),fontSize: 15),))),
+                          padding: EdgeInsets.all(25),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
 
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  child: Text((index+1).toString(),style: TextStyle(color:  hexToColor(globalvar.enishialcolor),fontSize: 20),),
+                                ),
+                              ),
+
                             Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                           child: Text(Q[index],style: TextStyle(color:  Colors.black,fontSize: 20),),
+                                     ),
+                              Container(
                                 width:MediaQuery.of(context).size.width ,
-
-                                color: Colors.white,
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                                padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
-                                child:TextButton(onPressed: (){
-                                  nextquestion(A2[index],context);
-                                }, child: Text(A2[index],style: TextStyle(color:  hexToColor(globalvar.enishialcolor2),fontSize: 15),))),
-
-
-
-                            Container(
-                                width:MediaQuery.of(context).size.width ,
-
-                                color: Colors.white,
-                                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                                padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
-                                child:TextButton(onPressed: (){
-                                  nextquestion(A3[index],context);
-                                }, child: Text(A3[index],style: TextStyle(color:  hexToColor(globalvar.enishialcolor2),fontSize: 15),))),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.black54,  ),
+                                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 5),
+                                  padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
+                                  child:TextButton(onPressed: (){
+                                    nextquestion(A1[index],context);
+                                  }, child: Text(A1[index],style: TextStyle(color: Colors.white,fontSize: 15),))),
 
 
-                            SizedBox(height: 25),
-                          //  Text(AT[index] == ansers[index] ? 'Correct!' : 'Please chose the right answer!')
-                            Text(correct)
-                          ],
-                        )),
-                 ] ))));
+                              Container(
+                                  width:MediaQuery.of(context).size.width ,
+
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.black54,  ),
+                                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
+                                  padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
+                                  child:TextButton(onPressed: (){
+                                    nextquestion(A2[index],context);
+                                  }, child: Text(A2[index],style: TextStyle(color: Colors.white,fontSize: 15),))),
+
+
+
+                              Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.black54,  ),
+                                  width:MediaQuery.of(context).size.width ,
+
+                                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
+                                  padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
+                                  child:TextButton(onPressed: (){
+                                    nextquestion(A3[index],context);
+                                  }, child: Text(A3[index],style: TextStyle(color:  Colors.white,fontSize: 15),))),
+////////////////////////////////////////////
+
+                            /////////////////////////////////////////////////
+
+                              SizedBox(height: 25),
+                            //  Text(AT[index] == ansers[index] ? 'Correct!' : 'Please chose the right answer!')
+                              Text(correct)
+                            ],
+                          )),
+                 ] ),
+                        ))));
 
 
         },

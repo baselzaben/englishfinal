@@ -57,8 +57,8 @@ class RegesterScreen extends StatelessWidget {
                                       contentPadding: EdgeInsets.all(20),
                                       filled: true,
                                       border: OutlineInputBorder(),
-                                      labelText: 'Name',
-                                      hintText: 'Input name',
+                                      labelText: 'الاسم',
+                                      hintText: 'أدخل اسمك',
                                       prefixIcon: Icon(Icons.account_box_rounded),
                                     ),
                                   ),),
@@ -73,8 +73,8 @@ class RegesterScreen extends StatelessWidget {
                                       contentPadding: EdgeInsets.all(20),
                                       filled: true,
                                       border: OutlineInputBorder(),
-                                      labelText: 'Email',
-                                      hintText: 'Input your Email',
+                                      labelText: 'البريد الالكتروني',
+                                      hintText: 'ادخل بريدك الالكتروني',
                                       prefixIcon: Icon(Icons.email),
 
                                     ),
@@ -91,8 +91,9 @@ class RegesterScreen extends StatelessWidget {
                                       contentPadding: EdgeInsets.all(20),
                                       filled: true,
                                       border: OutlineInputBorder(),
-                                      labelText: 'Password',
-                                      hintText: 'Input your password',
+                                      labelText: 'رمز المرور',
+                                      hintText: 'ادخل رمز المرور',
+
                                       prefixIcon: Icon(Icons.password),
                                     ),
                                   ),),
@@ -136,7 +137,7 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
     if(fullemail.contains(emailController.text)){
 
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('موجود')))
+            SnackBar(content: Text('هذا البريد موجود بالفعل')))
     } else
         {
 
@@ -146,7 +147,7 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
             'password': passwordController.text+formatsrting(emailController.text)
           }).then((_) {
             ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Successfully Added')));
+                SnackBar(content: Text('تم التسجيل , اذهب لتسجيل الدخول')));
             namedController.clear();
             emailController.clear();
             passwordController.clear();
@@ -157,10 +158,10 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
   });
 }else{
   ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('complet information')));
+        SnackBar(content: Text('اكمل تعبئة المعلومات')));
 }
                                       },
-                                      child: Text('Register'),
+                                      child: Text('تسجيل'),
                                     )
                                 ),
 
@@ -169,9 +170,9 @@ if(!namedController.text.isEmpty &&namedController.text.isNotEmpty&&!namedContro
                                     child: TextButton(onPressed: (){
 
                                       Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => HomeScreen()),);
+                                        MaterialPageRoute(builder: (context) => HomeScreenPage()),);
 
-                                    }, child: Text(' already have account ?')))
+                                    }, child: Text(' هل تملك حساب بالفعل ?')))
 
                               ],
                             ),

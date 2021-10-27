@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:englishfinal/globalvar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'RegesterScreen.dart';
 import 'HomePage.dart';
 import 'AdHelper.dart';
-
+import 'package:share/share.dart';
 void main() { runApp(MyApp());}
 
 class MyApp extends StatelessWidget {
@@ -17,25 +18,31 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
     );
   }
+
 }
 
 class MyHomePage extends StatefulWidget {
   @override
   SplashScreenState createState() => SplashScreenState();
 }
-class SplashScreenState extends State<MyHomePage> {
+class SplashScreenState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+
+  late final AnimationController _controller;
+
+
+
   @override
   void initState() {
     super.initState();
     Timer(Duration(seconds: 5),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
-                (context) => HomeScreen()
+                (context) => HomeScreenPage()
             )
         )
     );
-
-
+   // late final AnimationController _controller;
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1))..repeat();
 
   }
   @override
@@ -50,13 +57,22 @@ class SplashScreenState extends State<MyHomePage> {
         child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+     /*     AnimatedBuilder(
+            animation: _controller,
+            builder: (_, child) {
+              return Transform.rotate(
+                angle: _controller.value * 2 * 3.14159265358979323846,
+                child: child,
+              );
+            },*/
+           Container(
+              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 200),
 
-          Container(
-            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 200),
+              child: Image.asset('assets/images/logo.png',height: 400,width: 500,),
 
-            child: Image.asset('assets/images/logo.png',height: 400,width: 500,),
+            ),
+         // ),
 
-          ),
         ])
 
     );
@@ -65,13 +81,20 @@ class SplashScreenState extends State<MyHomePage> {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }
-class HomeScreen extends StatelessWidget {
+
+class HomeScreenPage extends StatefulWidget{
+  HomeScreen createState()=> HomeScreen();
+}
+
+class HomeScreen extends State<HomeScreenPage> {
+  bool rememberme = false;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    getuserdata();
     return Scaffold(
 
       body: Container(
@@ -118,8 +141,8 @@ class HomeScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.all(15),
                     filled: true,
                     border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Input your email',
+                    labelText: 'البريد الالكتروني',
+                    hintText: 'ادخل بريدك الالكتروني',
                     prefixIcon: Icon(Icons.email),
                   ),
                 ),),
@@ -134,24 +157,73 @@ class HomeScreen extends StatelessWidget {
                           contentPadding: EdgeInsets.all(15),
                           filled: true,
                           border: OutlineInputBorder(),
-                          labelText: 'Password',
-                          hintText: 'Input your password',
+                          labelText: 'رمز المرور',
+                          hintText: 'ادخل رمز المرور',
                           prefixIcon: Icon(Icons.password),
                         ),
                       ),),
+
+
+                   /* Align(
+                        alignment: Alignment.topLeft,
+                      child: Checkbox(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          value: rememberme,
+                          checkColor: Colors.white,
+
+                          onChanged:(bool? value) {
+                            setState(() {
+                              //   trans();
+                              //_valueCheck = value;
+                              rememberme=value!; });
+                          },
+                          activeColor: Theme.of(context).primaryColor),
+                    ),
+*/
+                    Container(
+                      margin: const EdgeInsets.only(left: 12.0,right: 12.0,top: 5.0,bottom: 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Checkbox(
+                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              value: rememberme,
+                              checkColor: Colors.white,
+
+                              onChanged:(bool? value) {
+                                setState(()   {
+                                  //   trans();
+                                  //_valueCheck = value;
+                                  rememberme=value!;
+                                  checkremeber(rememberme);
+                                });
+                              },
+                              activeColor: Theme.of(context).primaryColor),
+                          //Text("تذكر معلومات الدخول")
+                          //  Text(lan.getTexts('login').toString())
+                          Text('تــذكرني')
+                        ],
+                      ),
+                    ),
+
+
 
             Container(
               width: 200
                 ,
               height: 40,
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 70,bottom: 70),
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0,top: 20,bottom: 70),
                     child: RaisedButton(
                       color: hexToColor(globalvar.enishialcolor2),
                       // background
                       textColor: Colors.white, // foreground
-                      onPressed: () {
-    if(!emailController.text.isEmpty &&passwordController.text.isNotEmpty)
-    {
+                      onPressed: () async {
+
+
+
+
+                        if(!emailController.text.isEmpty &&passwordController.text.isNotEmpty)
+    { setuserdata(emailController.text,passwordController.text);
     DatabaseReference _messagesRef2 =
     FirebaseDatabase.instance.reference();
     String fullemail="";
@@ -172,6 +244,7 @@ class HomeScreen extends StatelessWidget {
 
 {
     if(fullemail.contains(emailController.text)  && fullemail.contains(passwordController.text+formatsrting(emailController.text))){
+        Navigator.pop(context),
 
         Navigator.push(context,
         MaterialPageRoute(builder: (context) => MainPage()),)
@@ -196,7 +269,7 @@ class HomeScreen extends StatelessWidget {
 
                       }
                       },
-                      child: Text('Login'),
+                      child: Text('تسجيل الدخول'),
                     )
             ),
 
@@ -207,7 +280,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(context,
                         MaterialPageRoute(builder: (context) => RegesterScreen()),);
 
-                    }, child: Text('You Don\'t have account ?')))
+                    }, child: Text('لا تملك حساب ?')))
 
                   ],
                 ),
@@ -231,6 +304,46 @@ class HomeScreen extends StatelessWidget {
   Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
+  void getuserdata()async{
+    SharedPreferences prefer;
+
+    prefer = await SharedPreferences.getInstance();
+    bool? x=prefer.getBool('rememberme');
+if(x!=null)
+  if(x){
+    var userid = prefer.getString('pass');
+    var password = prefer.getString('email');
+
+    emailController.text=userid!;
+    passwordController.text=password!;
+  }
+  }
+
+
+  void setuserdata(String em,String pa)async{
+    SharedPreferences prefer;
+
+    prefer = await SharedPreferences.getInstance();
+
+  prefer.setString('pass',em);
+   prefer.setString('email',pa);
+
+
+  }
+
+ checkremeber(bool rememberme) async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberme',rememberme);
+
+  }
+
+/*  getcheckremember() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getBool('rememberme');
+  }*/
+
 
 }
 

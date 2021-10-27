@@ -2,9 +2,11 @@ import 'package:englishfinal/RegesterScreen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'AdHelper.dart';
 import 'partclasses.dart';
 import 'globalvar.dart';
+
 // TODO: Import ad_helper.dart
 
 // TODO: Import google_mobile_ads.dart
@@ -15,6 +17,11 @@ class MainPage extends StatefulWidget{
   HomePage createState()=> HomePage();
 }
 class HomePage extends State<MainPage> {
+  final String _content = 'https://play.google.com/store/apps/details?id=com.baselalzaben.englishfinal&hl=ar&gl=US';
+
+  void _shareContent() {
+    Share.share(_content);
+  }
 
   Future<InitializationStatus> _initGoogleMobileAds() {
     // TODO: Initialize Google Mobile Ads SDK
@@ -99,99 +106,102 @@ class HomePage extends State<MainPage> {
     return Container(
       height: double.infinity,
       color: hexToColor(globalvar.enishialcolor),
-        child: SingleChildScrollView(
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+        child: Container(
+          margin: EdgeInsets.all(5),
+          child: Card(
+          child: SingleChildScrollView(
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
 
        ListView.builder(
-         shrinkWrap: true,
+           shrinkWrap: true,
       itemCount: scannedItemsValues.length,
       itemBuilder: (BuildContext context, int index) {
 
 
       print(scannedItemsValues[index]);
       return  GestureDetector(
-          onTap: () => selectItem(scannedItemsValues[index],scannedItemsValues2[index],context),
-          /*onTap: () => (){
+            onTap: () => selectItem(scannedItemsValues[index],scannedItemsValues2[index],context),
+            /*onTap: () => (){
 
-          Navigator.push(context,
-        MaterialPageRoute(builder: (context) => RegesterScreen()),);
-          print("basell");
+            Navigator.push(context,
+          MaterialPageRoute(builder: (context) => RegesterScreen()),);
+            print("basell");
        *//*     ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('complet information')));*//*
-          },*/
-        child: Container(
+                  SnackBar(content: Text('complet information')));*//*
+            },*/
+          child: Container(
 
-            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
-            padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
    /*child: Card(
 
 
       child: Column(
       mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-          Container(
+            children: <Widget>[
+            Container(
 
-          margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
       child: Text(scannedItemsValues[index]),
 
       )]))*/
 
-          child: Card(
+            child: Card(
 
 
-            semanticContainer: true,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-            elevation: 5,
-            margin: EdgeInsets.all(5),
-                    child: Container(
+              semanticContainer: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+              elevation: 5,
+              margin: EdgeInsets.all(5),
+                      child: Container(
 
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                const Color(0xFF141F55),
-                                const Color(0xFF0C1D3D),
-                              ],
-                              begin: const FractionalOffset(0.0, 0.0),
-                              end: const FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp),
-                        ),
-
-
-
-
-                   child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
-
-                            margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
-                            child: Text(scannedItemsValues2[index],style: TextStyle(color: Colors.white,fontSize: 20),),
-
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xFF141F55),
+                                  const Color(0xFF0C1D3D),
+                                ],
+                                begin: const FractionalOffset(0.0, 0.0),
+                                end: const FractionalOffset(1.0, 0.0),
+                                stops: [0.0, 1.0],
+                                tileMode: TileMode.clamp),
                           ),
 
 
-                        ])
-
-          ),
 
 
+                     child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(left: 10.0, right: 0.0,top: 10,bottom: 10),
 
-                  )
+                              margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                              child: Text(scannedItemsValues2[index],style: TextStyle(color: Colors.white,fontSize: 20),),
+
+                            ),
+
+
+                          ])
+
+            ),
+
+
+
+                    )
 
 
 
 
-          ),
+            ),
 
-        );
+          );
 
       },
 
@@ -199,16 +209,17 @@ class HomePage extends State<MainPage> {
       ),
 
 
-              Container(
-                child: AdWidget(ad: _ad),
-                width: _ad.size.width.toDouble(),
-                height: 80.0,
-                alignment: Alignment.center,
-              )
+                Container(
+                  child: AdWidget(ad: _ad),
+                  width: _ad.size.width.toDouble(),
+                  height: 80.0,
+                  alignment: Alignment.center,
+                )
 
 
       ]))
-    );
+    ),
+        ));
     },
     ),
 
@@ -252,16 +263,19 @@ class HomePage extends State<MainPage> {
 
 
             ListTile(
-              title:  Text('Item 1'),
+
+              title:  Text('مشاركة التطبيق'), leading: Icon(Icons.share,),
+
               onTap: () {
+                _shareContent();
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+              //  Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              title: const Text('من نحن'), leading: Icon(Icons.account_box_outlined,),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -269,6 +283,24 @@ class HomePage extends State<MainPage> {
                 Navigator.pop(context);
               },
             ),
+
+            ListTile(
+              title: const Text('تسجيل الخروج'), leading: Icon(Icons.logout,),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.pop(context);
+
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreenPage()),);
+
+              },
+            ),
+
+
+
           ],
         ),
       ),

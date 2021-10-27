@@ -124,64 +124,68 @@ class videolist extends State<videolistPage>  {
             color: hexToColor(globalvar.enishialcolor),
             height: double.infinity,
 
-            child: SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      GridView.builder(
-                        shrinkWrap: true,
+            child: Container(
+              margin: EdgeInsets.all(5),
+              child: Card(
+              child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        GridView.builder(
+                          shrinkWrap: true,
 
-                        itemCount: scannedItemsValues.length,
-              scrollDirection: Axis.vertical,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
+                          itemCount: scannedItemsValues.length,
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
 
 
-                print(scannedItemsValues[index]);
-                return  GestureDetector(
+                  print(scannedItemsValues[index]);
+                  return  GestureDetector(
 
-                    onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,scannedItemskey[index],context,go),
-                    /*onTap: () => (){
+                      onTap: () => selectItem(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,scannedItemskey[index],context,go),
+                      /*onTap: () => (){
 
         Navigator.push(context,
       MaterialPageRoute(builder: (context) => RegesterScreen()),);
         print("basell");
      *//*     ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('complet information')));*//*
+                  SnackBar(content: Text('complet information')));*//*
         },*/
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
+                      child: Container(
+                          margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 10,bottom: 10),
 
-                        child: Card(
+                          child: Card(
 color: Color(0xFF0C1D3D),// hexToColor(globalvar.enishialcolor),
 
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Container(
-                                      child: checkcomplet(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,scannedItemskey[index],context)),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                        child: checkcomplet(scannedItemsValues[index],scannedItemspath[index],scannedItemsmailcomplted[index],globalvar.email,scannedItemskey[index],context)),
 
-                                  Container(
-                            alignment:Alignment.center,
-                                    margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
-                                    child: Text(scannedItemsValues[index],  style: TextStyle(color: Colors.white),),
+                                    Container(
+                              alignment:Alignment.center,
+                                      margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
+                                      child: Text(scannedItemsValues[index],  style: TextStyle(color: Colors.white),),
 
-                                  )])))
+                                    )])))
 
-                );
-              },
-            ),
+                  );
+                },
+              ),
 
 
-                      Container(
-                        child: AdWidget(ad: _ad),
-                        width: _ad.size.width.toDouble(),
-                        height: 80.0,
-                        alignment: Alignment.center,
-                      )
-                    ])),
+                        Container(
+                          child: AdWidget(ad: _ad),
+                          width: _ad.size.width.toDouble(),
+                          height: 80.0,
+                          alignment: Alignment.center,
+                        )
+                      ])),
+            ) ),
           )
 
 

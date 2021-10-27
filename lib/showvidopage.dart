@@ -152,32 +152,35 @@ class showvideopageState extends State<showvideopage> {
             return  Container(
               color: hexToColor(globalvar.enishialcolor),
 height: double.infinity,
-              child: Column(
+              child: Container(
+                margin: EdgeInsets.all(5),
+                  child: Card(
+                child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
 
-              Container(
-                margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50,bottom: 10),
-                  child: Text('"لن تتمكن من مشاهدة الحصة التالية الا بعد أكمال الاختبار"',style: TextStyle(color:  Colors.black,fontSize: 15),)
+                Container(
+                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 50,bottom: 10),
+                    child: Text('"لن تتمكن من مشاهدة الحصة التالية الا بعد أكمال الاختبار"',style: TextStyle(color:  Colors.black,fontSize: 15),)
 
-              ),
+                ),
 
 
-              Container(
-                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
-                  child: AspectRatio(
+                Container(
+                    margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
+                    child: AspectRatio(
     aspectRatio: _controller.value.aspectRatio,
     child: VideoPlayer(_controller),
     )),
 
 
-              Container(
-                color: Colors.black12,
-                  margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
-                  child:TextButton(onPressed: (){
-                    loadad();
-                    selectItem(rout,go,k,context);
+                Container(
+                  color: Colors.black12,
+                    margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 20,bottom: 10),
+                    padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 0,bottom: 0),
+                    child:TextButton(onPressed: (){
+                      loadad();
+                      selectItem(rout,go,k,context);
           /*Navigator.push(context,
           MaterialPageRoute(builder: (context) => RegesterScreen()),);*/
 
@@ -185,6 +188,7 @@ height: double.infinity,
 
 
     ]),
+              ) ),
             );
 
               Center(
@@ -230,8 +234,8 @@ height: double.infinity,
 print('nooooo,error');
     }
    // _interstitialAd?.show();
-     ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('compleeete')));
+    /* ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('compleeete')));*/
       Navigator.push(context,
         MaterialPageRoute(builder: (context) => testPage(rout,go,k,emailcompleted)),);
 

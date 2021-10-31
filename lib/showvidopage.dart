@@ -49,7 +49,7 @@ class showvideopageState extends State<showvideopage> {
   }
 
 
-
+//  "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   InterstitialAd? _interstitialAd;
@@ -57,7 +57,7 @@ class showvideopageState extends State<showvideopage> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4");
+      path);
     //_controller = VideoPlayerController.asset("videos/sample_video.mp4");
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);

@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'AboutUs.dart';
 import 'AdHelper.dart';
 import 'partclasses.dart';
 import 'globalvar.dart';
@@ -280,7 +281,11 @@ class HomePage extends State<MainPage> {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+               // Navigator.pop(context);
+
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutUs()),);
+
               },
             ),
 

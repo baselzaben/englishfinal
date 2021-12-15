@@ -4,17 +4,17 @@ class AdHelper {
 
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-3938965156773479/2469183494';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+      return 'ca-app-pub-3938965156773479/2469183494';
     }
     throw new UnsupportedError("Unsupported platform");
   }
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-3940256099942544/8691691433";
+      return "ca-app-pub-3938965156773479/3447331040";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-3940256099942544/4411468910";
+      return "ca-app-pub-3938965156773479/3447331040";
     } else {
       throw new UnsupportedError("Unsupported platform");
     }
